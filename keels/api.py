@@ -15,8 +15,6 @@ recipients = [
       "name": "Chathura",
       "phone": "whatsapp:+94716301615"
     },
-    # {
-    #   "name": "Ruwanthi",
     {
       "name": "Ruwanthi",
       "phone": "whatsapp:+94769322212"
@@ -144,29 +142,30 @@ def get_deals():
   return deals
 
 # Return the templated message
-def get_message_template(deals):
-  message = "Hello. Today's deals are as follows: \n"
+def get_message_template(recipient, deals):
+  message = f"Hello {recipient["name"]}. Today's Keels deals are as follows: \n"
   message += "------------------------------------\n"
   for deal in deals:
     message += f"{deal['name']} - {deal['original_price']} -> {deal['discounted_price']} \n"
   return message
 
 # Send the message to the recipients
-def send_whatsapp_message(message, recipients):
-  for recipient in recipients:
-    print(f'sending message: {message} to {recipient["name"]} at {recipient["phone"]}')
-    message = client.messages.create(
-      body=message,
-      from_="whatsapp:+14155238886",
-      to=recipient["phone"],
-    )
+def send_whatsapp_message(message, recipient):
+  print(f'sending message: {message} to {recipient["name"]} at {recipient["phone"]}')
+  client.messages.create(
+    body=message,
+    from_="whatsapp:+14155238886",
+    to=recipient["phone"],
+  )
       
 
 def main():
   login_response = login()
   # usersessionid = login_response.json()['result']['userSessionID']
   deals = get_deals()
-  send_whatsapp_message(get_message_template(deals), recipients)
+  for recipient in recipients:
+    message = get_message_template(recipient, deals)
+    send_whatsapp_message(message, recipient)
   
 
 if __name__ == "__main__":
