@@ -17,8 +17,10 @@ recipients = [
     },
     # {
     #   "name": "Ruwanthi",
-    #   "phone": "whatsapp:+94769322212"
-    # }
+    {
+      "name": "Ruwanthi",
+      "phone": "whatsapp:+94769322212"
+    }
 ]
 
 products_url = "https://zebraliveback.keellssuper.com/2.0/Web/GetItemDetails"
@@ -73,7 +75,7 @@ def get_deals():
   
   params = {
     'fromCount': 0,
-    'toCount': 10,
+    'toCount': 20,
     'outletCode': 'SCDR',
     'departmentId': '',
     'subDepartmentId': '',
