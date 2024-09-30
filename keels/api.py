@@ -15,10 +15,10 @@ recipients = [
       "name": "Chathura",
       "phone": "whatsapp:+94716301615"
     },
-    {
-      "name": "Ruwanthi",
-      "phone": "whatsapp:+94769322212"
-    }
+    # {
+    #   "name": "Ruwanthi",
+    #   "phone": "whatsapp:+94769322212"
+    # }
 ]
 
 products_url = "https://zebraliveback.keellssuper.com/2.0/Web/GetItemDetails"
@@ -143,10 +143,9 @@ def get_deals():
 
 # Return the templated message
 def get_message_template(recipient, deals):
-  message = f"Hello {recipient["name"]}. Today's Keels deals are as follows: \n"
-  message += "------------------------------------\n"
+  message = f"🟩 Hello {recipient["name"]}. Today's Keels deals are as follows: \n"
   for deal in deals:
-    message += f"{deal['name']} - {deal['original_price']} -> {deal['discounted_price']} \n"
+    message += f"✅ {deal['name']} - {deal['original_price']} -> {deal['discounted_price']} \n"
   return message
 
 # Send the message to the recipients
