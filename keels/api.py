@@ -168,7 +168,7 @@ def send_message():
 
 def main():
   # Schedule the message to be sent every 24 hours
-  schedule.every(10).hours.do(send_message)
+  schedule.every(10).seconds.do(send_message)
   while True:
     schedule.run_pending()
     time.sleep(1)  # wait one hour
