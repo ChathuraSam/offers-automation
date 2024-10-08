@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from twilio.rest import Client
 import requests
 import uuid
+import schedule
+import time
 
 load_dotenv()
 
@@ -15,10 +17,10 @@ recipients = [
       "name": "Chathura",
       "phone": "whatsapp:+94716301615"
     },
-    # {
-    #   "name": "Ruwanthi",
-    #   "phone": "whatsapp:+94769322212"
-    # }
+    {
+      "name": "Ruwanthi",
+      "phone": "whatsapp:+94769322212"
+    }
 ]
 
 products_url = "https://zebraliveback.keellssuper.com/2.0/Web/GetItemDetails"
@@ -156,16 +158,22 @@ def send_whatsapp_message(message, recipient):
     from_="whatsapp:+14155238886",
     to=recipient["phone"],
   )
-      
 
-def main():
-  login_response = login()
-  # usersessionid = login_response.json()['result']['userSessionID']
+def send_message():
+  login()
   deals = get_deals()
   for recipient in recipients:
     message = get_message_template(recipient, deals)
     send_whatsapp_message(message, recipient)
+
+def main():
+  # Schedule the message to be sent every 24 hours
+  schedule.every(24).hours.do(send_message)
+  while True:
+    schedule.run_pending()
+    time.sleep(60*60)  # wait one hour
   
 
 if __name__ == "__main__":
   main()
+
